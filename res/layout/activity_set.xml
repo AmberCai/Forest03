@@ -4,8 +4,14 @@
     android:layout_height="fill_parent"
     android:background="@drawable/set_background"
     android:orientation="vertical">
+  
     
-    <RelativeLayout 
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
                 
@@ -17,7 +23,8 @@
             android:background="@drawable/new_version"
             android:visibility="invisible"
             />
-    </RelativeLayout> 
+     </RelativeLayout> 
+   </LinearLayout>
        	
 	<LinearLayout 
 	    android:paddingTop="70dp"
