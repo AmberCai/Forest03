@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/pestsreport_background"
+    android:gravity="center"
+    android:orientation="vertical" >
+    
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:paddingTop="95dp"
+    	android:paddingLeft="20dp"
+    	android:paddingRight="20dp">
+	    
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生物种类："
+            android:textColor="#000"
+            android:textSize="20sp"
+            />
+        
+        <Spinner 
+            android:id="@+id/pestskinds"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:paddingTop="10dp"
+    	android:paddingLeft="20dp"
+    	android:paddingRight="20dp">
+	    
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生长阶段："
+            android:textColor="#000"
+            android:textSize="20sp"
+            />
+        
+        <Spinner 
+            android:id="@+id/pestsstage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:paddingTop="10dp"
+    	android:paddingLeft="20dp"
+    	android:paddingRight="20dp">
+	    
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="受害数量："
+            android:textColor="#000"
+            android:textSize="20sp"
+            />
+        
+        <Spinner 
+            android:id="@+id/pestsamount"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:paddingTop="10dp"
+    	android:paddingLeft="20dp"
+    	android:paddingRight="20dp">
+	    
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="危害程度："
+            android:textColor="#000"
+            android:textSize="20sp"
+            />
+        
+        <Spinner 
+            android:id="@+id/pestslevel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:paddingTop="10dp"
+    	android:paddingLeft="20dp"
+    	android:paddingRight="20dp">
+	    
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="处理建议："
+            android:textColor="#000"
+            android:textSize="20sp"
+            />
+        
+        <Spinner 
+            android:id="@+id/pestsadvise"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+        
+    </LinearLayout>
+    
+    <Button 
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sendbtn_selector"
+        />
+    
+   
+</LinearLayout>

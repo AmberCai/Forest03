@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/set_background"
+    android:orientation="vertical">
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+                
+        <ImageButton 
+            android:id="@+id/update"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/new_version"
+            android:visibility="invisible"
+            />
+    </RelativeLayout> 
+       	
+	<LinearLayout 
+	    android:paddingTop="70dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        	
+	  <TextView
+	    android:layout_width="250dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:text="目标服务器IP："
+	    android:textSize="20sp"
+	    android:textColor="#000"
+	    />
+	  <EditText 
+	    android:id="@+id/ip"
+	    android:hint="192.168.0.1"
+	    android:layout_width="250dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="#000"/>
+	  <TextView 
+	    android:layout_width="250dp"
+	    android:layout_height="wrap_content"
+	    android:text="定时周期(分钟)："
+	    android:textSize="20sp"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="6dp"
+	    android:textColor="#000"/>
+	
+	<Spinner 
+	    android:id="@+id/timecycle"
+	    android:layout_width="250dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    />	
+	
+	<TextView
+	    android:text="本机AndroidID:"
+	    android:textSize="20sp"
+	    android:layout_width="250dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="6dp"
+	    android:textColor="#000"/>
+	
+	<EditText
+	    android:id="@+id/androidID"
+	    android:text="987654321:"
+	    android:textSize="16sp"
+	    android:layout_width="250dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="#000"/>
+	
+<RelativeLayout 
+	    android:paddingTop="10dp"
+	    android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">	
+        
+   <LinearLayout 
+       android:id="@+id/userLinear"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="24dp">
+	<Button 
+	    android:id="@+id/updateuser"
+	    android:background="@drawable/updateuser_selector"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_gravity="center"
+	    />
+	<TextView
+	    android:text="更新用户列表"
+	    android:textSize="15sp"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="5dp"
+	    android:textColor="#000"/>
+	
+	</LinearLayout>
+	
+   <LinearLayout 
+       android:id="@+id/pestsLinear"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/userLinear"
+        android:paddingLeft="15dp">
+   <Button 
+	    android:id="@+id/updatepests"
+	    android:background="@drawable/updatepests_selector"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_gravity="center"
+	    />
+	<TextView
+	    android:text="更新病虫列表"
+	    android:textSize="15sp"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="5dp"
+	    android:textColor="#000"/>
+	
+	</LinearLayout>
+
+   <!-- 20140912 在设置页面增加“取消自动登录”按钮 -->
+   <LinearLayout 
+       android:id="@+id/loginLinear"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/pestsLinear"
+        android:paddingLeft="15dp">
+     <Button 
+	    android:id="@+id/cancelAutoLogin"
+	    android:background="@drawable/autologin_selector"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_gravity="center"
+	    />
+	<TextView
+	    android:text="取消自动登录"
+	    android:textSize="15sp"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="5dp"
+	    android:textColor="#000"/>
+	
+	</LinearLayout>
+
+</RelativeLayout> 
+	
+	<Button 
+	        android:paddingTop="20dp"
+            android:id="@+id/yesbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yesbtn_selector"
+            android:layout_gravity="center" />
+	
+	</LinearLayout> 
+	
+</LinearLayout>

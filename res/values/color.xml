@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="gray">#454545</drawable>
+    <drawable name="list_gray">#969696</drawable>
+    <drawable name="list_white">#ffffff</drawable>
+</resources>

@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="app_name">Forest01</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_login">森林三防</string>
+    <string name="hello">森林三防终端</string>
+    <string name="photo_name">相片名称</string>
+    <string name="title_activity_main">Main</string>
+    <string name="title_activity_fire_report">FireReport</string>
+    <string name="title_activity_pests_report">PestsReport</string>
+    <string name="title_activity_deforestation">Deforestation</string>
+    <string name="title_activity_set">Set</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_pests_detail">PestsDetail</string>
+    <string name="title_activity_test">Test</string>
+
+</resources>
