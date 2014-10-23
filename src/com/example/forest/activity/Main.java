@@ -42,7 +42,7 @@ import com.example.forest.util.DBManager;
 import com.example.forest.util.Forest;
 import com.example.forest.util.Util;
 
-public class Main extends Activity {
+public class Main extends Activity implements OnClickListener {
 
     /*********** 主界面框架 *********************************************/
     private GridView gridView;
@@ -80,7 +80,26 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 主界面
+        initView();
+
+        /**
+         * @date 20140911
+         * @content 注释以下代码，“请打开数据连接”的提醒只在登陆界面显示，以后不做显示
+         */
+        // if (!Forest.isNetConnect(Main.this)) {
+        // showDialogMsg("请打开数据连接！");
+        // }
+
+        notifivationTimerTask();
+
+        msglistDismissListener();
+
+        sendLocationTask();
+
+    }
+
+    public void initView() {
+
         gridviewLinear = (LinearLayout) findViewById(R.id.gridlinear);
         gridView = (GridView) findViewById(R.id.gridview);
         ImageAdapter adapter = new ImageAdapter(this);
@@ -93,37 +112,89 @@ public class Main extends Activity {
 
         shangban = (Button) findViewById(R.id.shangban);
         xiaban = (Button) findViewById(R.id.xiaban);
-        // config_preferences = Forest.config_preferences;
-        // editor = config_preferences.edit();
-        shangban.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // editor.putBoolean("shangban", true);
+        // 设置通告栏的动态图片
+        notice = (GifView) findViewById(R.id.notice);
+        notice.setGifImage(R.drawable.laba);
+        // 进度条对话框加载
+        progressDialog = new ProgressBar(Main.this, R.style._ProgressBar);
+
+        progressDialog.setContentView(R.layout.progress);
+
+        notification = new NotificationExtend(Main.this);
+
+        // 服务器消息通告栏
+        linearLayout = (LinearLayout) findViewById(R.id.msgarea);
+        msgcontent = (TextView) findViewById(R.id.msg_content);
+        msgcontent.setText("暂时无最新通知！请随时注意最新通告，帮助您更好的工作！");
+        msgnum = (TextView) findViewById(R.id.msg_num);
+        msgnum.setText("0");
+        // 通告消息显示框
+        msgListDialog = new MsgListDialog(Main.this, R.style._MsgListDialog);
+
+        shangban.setOnClickListener(this);
+        xiaban.setOnClickListener(this);
+        linearLayout.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+            case R.id.shangban:
                 Util.shangbanFlag = true;
                 shangban.setEnabled(false);
                 xiaban.setEnabled(true);
-                // editor.commit();
-            }
-        });
-        xiaban.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // editor.putBoolean("shangban", false);
-                // editor.commit();
+                break;
+            case R.id.xiaban:
                 Util.shangbanFlag = false;
                 xiaban.setEnabled(false);
                 shangban.setEnabled(true);
+                break;
+            case R.id.msgarea:
+                if (count > 0) {
+                    msgListDialog.show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void msglistDismissListener() {
+        msgListDialog.setOnDismissListener(new Dialog.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface arg0) {
+                Message msg = new Message();
+                List<String> notify;
+                DBManager dbManager = new DBManager(Main.this);
+                dbManager.openDatabase();
+                notify = dbManager.query_unreadMsg();
+                dbManager.closeDatabase();
+
+                if (notify.size() > 0) {
+                    if (lastNotification == null) {
+                        lastnotify_num = notify.size();
+                        lastNotification = notify.get(notify.size() - 1);
+                        msg.obj = notify.get(notify.size() - 1) + "#"
+                                + notify.size();
+                        msg.what = Const.NEW_MSG;
+                        handler.sendMessage(msg);
+                    }
+                    if (!lastNotification.equals(notify.get(notify.size() - 1))
+                            || lastnotify_num != notify.size()) {
+                        lastNotification = notify.get(notify.size() - 1);
+                        msg.obj = notify.get(notify.size() - 1) + "#"
+                                + notify.size();
+                        msg.what = Const.NEW_MSG;
+                        handler.sendMessage(msg);
+                    }
+                }
             }
         });
-        /**
-         * @date 20140911
-         * @content 注释以下代码，“请打开数据连接”的提醒只在登陆界面显示，以后不做显示
-         */
-        // if (!Forest.isNetConnect(Main.this)) {
-        // showDialogMsg("请打开数据连接！");
-        // }
+    }
 
+    public void notifivationTimerTask() {
         /**
          * @date 20140915 java.util.Timer.schedule(TimerTask task, long delay,
          *       long period)表示delay
@@ -173,68 +244,9 @@ public class Main extends Activity {
                 }
             }
         }, 0, 3000);
+    }
 
-        // 进度条对话框加载
-        progressDialog = new ProgressBar(Main.this, R.style._ProgressBar);
-
-        progressDialog.setContentView(R.layout.progress);
-
-        notification = new NotificationExtend(Main.this);
-        // 设置通告栏的动态图片
-        notice = (GifView) findViewById(R.id.notice);
-        notice.setGifImage(R.drawable.laba);
-
-        // 服务器消息通告栏
-        linearLayout = (LinearLayout) findViewById(R.id.msgarea);
-        msgcontent = (TextView) findViewById(R.id.msg_content);
-        msgcontent.setText("暂时无最新通知！请随时注意最新通告，帮助您更好的工作！");
-        msgnum = (TextView) findViewById(R.id.msg_num);
-        msgnum.setText("0");
-
-        // 通告消息显示框
-        msgListDialog = new MsgListDialog(Main.this, R.style._MsgListDialog);
-
-        msgListDialog.setOnDismissListener(new Dialog.OnDismissListener() {
-
-            @Override
-            public void onDismiss(DialogInterface arg0) {
-                Message msg = new Message();
-                List<String> notify;
-                DBManager dbManager = new DBManager(Main.this);
-                dbManager.openDatabase();
-                notify = dbManager.query_unreadMsg();
-                dbManager.closeDatabase();
-
-                if (notify.size() > 0) {
-                    if (lastNotification == null) {
-                        lastnotify_num = notify.size();
-                        lastNotification = notify.get(notify.size() - 1);
-                        msg.obj = notify.get(notify.size() - 1) + "#"
-                                + notify.size();
-                        msg.what = Const.NEW_MSG;
-                        handler.sendMessage(msg);
-                    }
-                    if (!lastNotification.equals(notify.get(notify.size() - 1))
-                            || lastnotify_num != notify.size()) {
-                        lastNotification = notify.get(notify.size() - 1);
-                        msg.obj = notify.get(notify.size() - 1) + "#"
-                                + notify.size();
-                        msg.what = Const.NEW_MSG;
-                        handler.sendMessage(msg);
-                    }
-                }
-            }
-        });
-        linearLayout.setOnClickListener(new OnClickListener() {
-            // 当点击消息栏时，显示消息列表
-            @Override
-            public void onClick(View v) {
-                if (count > 0) {
-                    msgListDialog.show();
-                }
-            }
-        });
-
+    public void sendLocationTask() {
         // 开启定时发送任务
         aManager = (AlarmManager) getSystemService(Service.ALARM_SERVICE);
         Date now = new Date();
