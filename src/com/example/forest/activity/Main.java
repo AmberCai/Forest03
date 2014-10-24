@@ -586,7 +586,13 @@ public class Main extends Activity implements OnClickListener {
                                             i = null;
                                         }
                                     });
-                            // 病虫害，若取消拍照，则在本地数据库中查看是否存在病虫害信息，若有，则直接转入pest——detail页面
+                            /**
+                             * @date 20141024
+                             * @content 
+                             *          病虫害，若取消拍照，则在本地数据库中查看是否存在病虫害信息，若有，则直接转入pest
+                             *          —— detail页面
+                             * @notes:跳转页面时注意传递的Bundle值（类型、数量）与接收的对应
+                             */
                             builder.setNegativeButton("取消",
                                     new DialogInterface.OnClickListener() {
                                         @Override
@@ -608,7 +614,6 @@ public class Main extends Activity implements OnClickListener {
                                                 from.putString("datetime",
                                                         util.loc_dat
                                                                 + util.loc_time);
-                                                from.putString("type", "B");
                                                 i.putExtras(from);
                                                 i.setFlags(i.FLAG_ACTIVITY_NO_USER_ACTION);
                                                 startActivity(i);
@@ -653,7 +658,9 @@ public class Main extends Activity implements OnClickListener {
                             final Util util = new Util(Main.this);
                             final String msg = util.obtainLocation(Const.CUT,
                                     Main.this);
-                            System.out.println("FireReport:------------" + msg);
+                            System.out
+                                    .println("deforestationReport:------------"
+                                            + msg);
 
                             Thread deforest_thread = new Thread() {
                                 @Override
@@ -757,9 +764,9 @@ public class Main extends Activity implements OnClickListener {
                             final Util util = new Util(Main.this);
                             final String msg = util.obtainLocation(Const.SOS,
                                     Main.this);
-                            System.out.println("FireReport:------------" + msg);
+                            System.out.println("sosReport:------------" + msg);
 
-                            Thread deforest_thread = new Thread() {
+                            Thread sos_thread = new Thread() {
                                 @Override
                                 public void run() {
 
@@ -777,7 +784,7 @@ public class Main extends Activity implements OnClickListener {
                                 };
                             };
                             if (Forest.isNetConnect(Main.this)) {
-                                deforest_thread.start();
+                                sos_thread.start();
                             }
                             else {
                                 DBManager dbManager = new DBManager(Main.this);
