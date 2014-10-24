@@ -96,6 +96,9 @@ public class Main extends Activity implements OnClickListener {
 
         sendLocationTask();
 
+        shangban.setOnClickListener(this);
+        xiaban.setOnClickListener(this);
+        linearLayout.setOnClickListener(this);
     }
 
     public void initView() {
@@ -131,9 +134,6 @@ public class Main extends Activity implements OnClickListener {
         // 通告消息显示框
         msgListDialog = new MsgListDialog(Main.this, R.style._MsgListDialog);
 
-        shangban.setOnClickListener(this);
-        xiaban.setOnClickListener(this);
-        linearLayout.setOnClickListener(this);
     }
 
     @Override

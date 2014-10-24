@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -19,7 +20,7 @@ import com.example.forest.util.DBManager;
 import com.example.forest.util.Forest;
 import com.example.forest.util.Util;
 
-public class PestsDetail extends Activity {
+public class PestsDetail extends Activity implements OnClickListener {
 
     // SharedPreferences config_preferences;
     Spinner pestsKinds, pestsStage, pestsAmount, pestsLevel, pestsAdvise;
@@ -45,20 +46,32 @@ public class PestsDetail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pests_detail);
 
+        initView();
+
+        Intent intent = getIntent();
+        Bundle data = intent.getExtras();
+        datetime = data.getString("datetime");
+
+        getDBdata();
+
+        adaptData();
+
+        send.setOnClickListener(this);
+    }
+
+    public void initView() {
         pestsKinds = (Spinner) findViewById(R.id.pestskinds);
         pestsStage = (Spinner) findViewById(R.id.pestsstage);
         pestsAmount = (Spinner) findViewById(R.id.pestsamount);
         pestsLevel = (Spinner) findViewById(R.id.pestslevel);
         pestsAdvise = (Spinner) findViewById(R.id.pestsadvise);
 
-        Intent intent = getIntent();
-        Bundle data = intent.getExtras();
-        datetime = data.getString("datetime");
-
-        // config_preferences = Forest.config_preferences;
-
         notification = new NotificationExtend(PestsDetail.this);
 
+        send = (Button) findViewById(R.id.send);
+    }
+
+    public void getDBdata() {
         DBManager dbManager = new DBManager(PestsDetail.this);
         dbManager.openDatabase();
         Map<String, String> kinds_map = dbManager.query_pestsKinds();
@@ -112,7 +125,9 @@ public class PestsDetail extends Activity {
             adviselist_Number.add(key);
             adviselist_Name.add(advise_map.get(key));
         }
+    }
 
+    public void adaptData() {
         ArrayAdapter<String> kinds = new ArrayAdapter<String>(PestsDetail.this,
                 android.R.layout.simple_spinner_item, kindslist_Name);
         ArrayAdapter<String> stage = new ArrayAdapter<String>(PestsDetail.this,
@@ -141,13 +156,13 @@ public class PestsDetail extends Activity {
         pestsAmount.setAdapter(amount);
         pestsLevel.setAdapter(level);
         pestsAdvise.setAdapter(advise);
+    }
 
-        send = (Button) findViewById(R.id.send);
-        send.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+            case R.id.send:
                 StringBuilder sb = new StringBuilder();
 
                 // sb.append(config_preferences.getString("phoneID",
@@ -180,9 +195,11 @@ public class PestsDetail extends Activity {
                 Intent i = new Intent(PestsDetail.this, Main.class);
                 i.setFlags(i.FLAG_ACTIVITY_NO_USER_ACTION);
                 startActivity(i);
-                // 此处需要加i=null?
-            }
-        });
+                i = null;
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
