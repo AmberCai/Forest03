@@ -212,46 +212,50 @@ public class Set extends Activity implements OnClickListener {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case Const.DOWNFINISH:
+                        // 下载完成时要将进度条对话框取消，并进行是否安装新应用的提示
+                        pBar.cancel();
 
-                if (msg.what == Const.DOWNFINISH) {
-                    // 下载完成时要将进度条对话框取消，并进行是否安装新应用的提示
-                    pBar.cancel();
+                        // 弹出警告框，提示是否安装新的版本
+                        Dialog installDialog = new AlertDialog.Builder(Set.this)
+                                .setTitle("下载完成")
+                                .setMessage("是否安装新的应用")
+                                .setPositiveButton("确定",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(
+                                                    DialogInterface dialog,
+                                                    int which) {
+                                                installNewApk();
+                                                finish();
+                                            }
+                                        })
+                                .setNegativeButton("取消",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(
+                                                    DialogInterface dialog,
+                                                    int which) {
+                                                // TODO Auto-generated method
+                                                // stub
+                                            }
+                                        }).create();
+                        installDialog.show();
+                        break;
+                    case Const.NEWVERSION:
+                        // 联网检测，是否有新的版本，如果有新的版本，则在右上角显示NEW图标，否则无显示
+                        if (has_newVersion) {
+                            // update.setImageResource(R.drawable.app_new);
+                            update.setVisibility(View.VISIBLE);
 
-                    // 弹出警告框，提示是否安装新的版本
-                    Dialog installDialog = new AlertDialog.Builder(Set.this)
-                            .setTitle("下载完成")
-                            .setMessage("是否安装新的应用")
-                            .setPositiveButton("确定",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(
-                                                DialogInterface dialog,
-                                                int which) {
-                                            installNewApk();
-                                            finish();
-                                        }
-                                    })
-                            .setNegativeButton("取消",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(
-                                                DialogInterface dialog,
-                                                int which) {
-                                            // TODO Auto-generated method stub
-                                        }
-                                    }).create();
-                    installDialog.show();
-                }
-                else if (msg.what == Const.NEWVERSION) {
-                    // 联网检测，是否有新的版本，如果有新的版本，则在右上角显示NEW图标，否则无显示
-                    if (has_newVersion) {
-                        // update.setImageResource(R.drawable.app_new);
-                        update.setVisibility(View.VISIBLE);
-
-                    }
-                    else {
-                        update.setVisibility(View.INVISIBLE);
-                    }
+                        }
+                        else {
+                            update.setVisibility(View.INVISIBLE);
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
         };
@@ -325,7 +329,6 @@ public class Set extends Activity implements OnClickListener {
                 }
                 break;
             // case R.id.cancelAutoLogin:
-            // // cancelAutoLogin_thread.start();
             // // 更改已保存的数据
             // editor.putString("username", "");
             // editor.putString("password", "");
@@ -334,7 +337,7 @@ public class Set extends Activity implements OnClickListener {
             // editor.commit();
             // break;
             case R.id.update:
-                update.setVisibility(View.GONE);
+                update.setVisibility(View.INVISIBLE);
                 try {
                     showUpdateDialog();
                 }
