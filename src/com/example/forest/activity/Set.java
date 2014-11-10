@@ -33,6 +33,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ import com.example.forest.util.DBManager;
 import com.example.forest.util.Forest;
 import com.example.forest.util.ResolveXML;
 
-public class Set extends Activity {
+public class Set extends Activity implements OnClickListener {
 
     EditText ip;
     Spinner timeCycle;
@@ -90,61 +91,21 @@ public class Set extends Activity {
 
     ActivityManager activityManager;
 
+    long curTime = System.currentTimeMillis();
+
+    long dt = (curTime - last_updatePestsTime) / 1000;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
 
-        ip = (EditText) findViewById(R.id.ip);
-        ip.setEnabled(false);
+        initView();
 
-        appName = CurrentVersion.getAppName(Set.this);
-
-        timeCycle = (Spinner) findViewById(R.id.timecycle);
-        timeCycle.setEnabled(false);
-
-        yesbtn = (Button) findViewById(R.id.yesbtn);
-        update = (ImageButton) findViewById(R.id.update);
-
-        updateUser = (Button) findViewById(R.id.updateuser);
-        updatePests = (Button) findViewById(R.id.updatepests);
-        /**************** 20140912 增加“取消自动登录”按钮 开始 ***********************/
-        cancelAutoLogin = (Button) findViewById(R.id.cancelAutoLogin);
-        /**************** 20140912 增加“取消自动登录”按钮 结束 ***********************/
-
-        androidID = (EditText) findViewById(R.id.androidID);
-        androidID.setText(Forest.getAndroidID(Set.this));
-        androidID.setEnabled(false);
-
-        activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        // config_preferences = getSharedPreferences("config",
-        // MODE_WORLD_WRITEABLE);
-        // editor = config_preferences.edit();
-
-        // ip.setText(config_preferences.getString("server_ip",
-        // Login.SERVER_IP));
-        ip.setText(Login.SERVER_IP);
-
-        yesbtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(Set.this, Main.class);
-                i.setFlags(i.FLAG_ACTIVITY_NO_USER_ACTION);
-                startActivity(i);
-                i = null;
-                Set.this.finish();
-
-            }
-        });
-
-        timeCycle.setAdapter(new ArrayAdapter<String>(Set.this,
-                android.R.layout.simple_spinner_item, cycle));
-
-        // int t = config_preferences.getInt("cycle", 5);
-        // int poi = getPosition(cycl, t);
-        timeCycle.setSelection(2);
+        yesbtn.setOnClickListener(this);
+        updateUser.setOnClickListener(this);
+        updatePests.setOnClickListener(this);
+        // cancelAutoLogin.setOnClickListener(this);
 
         // 获取手机编号,所有的用户
         getUser_thread = new Thread() {
@@ -214,66 +175,30 @@ public class Set extends Activity {
             }
         };
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-
-                update.setVisibility(View.GONE);
-                try {
-                    showUpdateDialog();
-                }
-                catch (NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        updateUser.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                long curTime = System.currentTimeMillis();
-
-                long dt = (curTime - last_updateUserTime) / 1000;
-
-                if (last_updateUserTime == 0 || dt > dt_standard) {
-                    if (Forest.isNetConnect(Set.this)) {
-                        getUser_thread.start();
-                    }
-                    last_updateUserTime = curTime;
-                }
-            }
-        });
-
-        updatePests.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                long curTime = System.currentTimeMillis();
-
-                long dt = (curTime - last_updatePestsTime) / 1000;
-
-                if (last_updateUserTime == 0 || dt > dt_standard) {
-                    if (Forest.isNetConnect(Set.this)) {
-                        getPests_thread.start();
-                    }
-                    last_updatePestsTime = curTime;
-                }
-            }
-        });
+        // update.setOnClickListener(new View.OnClickListener() {
+        // @Override
+        // public void onClick(View arg0) {
+        //
+        // update.setVisibility(View.GONE);
+        // try {
+        // showUpdateDialog();
+        // }
+        // catch (NameNotFoundException e) {
+        // e.printStackTrace();
+        // }
+        // }
+        // });
 
         /**************** 20140912 增加“取消自动登录”按钮 开始 ***********************/
         // 打开本地已经存在的sharedPreferences文件
         SharedPreferences sharedPreferences = this.getSharedPreferences(
                 "saveContent", Context.MODE_PRIVATE);
         final Editor editor = sharedPreferences.edit();
+
         cancelAutoLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // cancelAutoLogin_thread.start();
                 // 更改已保存的数据
                 editor.putString("username", "");
                 editor.putString("password", "");
@@ -283,8 +208,6 @@ public class Set extends Activity {
             }
         });
         /**************** 20140912 增加“取消自动登录”按钮 结束 ***********************/
-
-        notification = new NotificationExtend(Set.this);
 
         handler = new Handler() {
             @Override
@@ -332,6 +255,96 @@ public class Set extends Activity {
                 }
             }
         };
+    }
+
+    private void initView() {
+        ip = (EditText) findViewById(R.id.ip);
+        ip.setEnabled(false);
+
+        appName = CurrentVersion.getAppName(Set.this);
+
+        timeCycle = (Spinner) findViewById(R.id.timecycle);
+        timeCycle.setEnabled(false);
+
+        yesbtn = (Button) findViewById(R.id.yesbtn);
+        update = (ImageButton) findViewById(R.id.update);
+
+        updateUser = (Button) findViewById(R.id.updateuser);
+        updatePests = (Button) findViewById(R.id.updatepests);
+        /**************** 20140912 增加“取消自动登录”按钮 开始 ***********************/
+        cancelAutoLogin = (Button) findViewById(R.id.cancelAutoLogin);
+        /**************** 20140912 增加“取消自动登录”按钮 结束 ***********************/
+
+        androidID = (EditText) findViewById(R.id.androidID);
+        androidID.setText(Forest.getAndroidID(Set.this));
+        androidID.setEnabled(false);
+
+        activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        // config_preferences = getSharedPreferences("config",
+        // MODE_WORLD_WRITEABLE);
+        // editor = config_preferences.edit();
+
+        // ip.setText(config_preferences.getString("server_ip",
+        // Login.SERVER_IP));
+        ip.setText(Login.SERVER_IP);
+        timeCycle.setAdapter(new ArrayAdapter<String>(Set.this,
+                android.R.layout.simple_spinner_item, cycle));
+
+        // int t = config_preferences.getInt("cycle", 5);
+        // int poi = getPosition(cycl, t);
+        timeCycle.setSelection(2);
+
+        notification = new NotificationExtend(Set.this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+            case R.id.yesbtn:
+                Intent i = new Intent(Set.this, Main.class);
+                i.setFlags(i.FLAG_ACTIVITY_NO_USER_ACTION);
+                startActivity(i);
+                i = null;
+                Set.this.finish();
+                break;
+            case R.id.updateuser:
+                if (last_updateUserTime == 0 || dt > dt_standard) {
+                    if (Forest.isNetConnect(Set.this)) {
+                        getUser_thread.start();
+                    }
+                    last_updateUserTime = curTime;
+                }
+                break;
+            case R.id.updatepests:
+                if (last_updatePestsTime == 0 || dt > dt_standard) {
+                    if (Forest.isNetConnect(Set.this)) {
+                        getPests_thread.start();
+                    }
+                    last_updatePestsTime = curTime;
+                }
+                break;
+            // case R.id.cancelAutoLogin:
+            // // cancelAutoLogin_thread.start();
+            // // 更改已保存的数据
+            // editor.putString("username", "");
+            // editor.putString("password", "");
+            // editor.putInt("position", 0);
+            // // 确认保存并提交
+            // editor.commit();
+            // break;
+            case R.id.update:
+                update.setVisibility(View.GONE);
+                try {
+                    showUpdateDialog();
+                }
+                catch (NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -596,4 +609,5 @@ public class Set extends Activity {
         }
         return poi;
     }
+
 }
