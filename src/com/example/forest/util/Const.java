@@ -15,6 +15,7 @@ public class Const {
     public static int FIRESENDFAIL = 0x777;
     public static final int NEWVERSION = 0x123;
     public static final int DOWNFINISH = 0x321;
+    public static final int UPDATE = 0x322;
     public static int NO_SERVER = 0x987;
 
     public static int SENDED = 0x567;

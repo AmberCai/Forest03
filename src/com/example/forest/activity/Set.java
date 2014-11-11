@@ -175,19 +175,19 @@ public class Set extends Activity implements OnClickListener {
             }
         };
 
-        // update.setOnClickListener(new View.OnClickListener() {
-        // @Override
-        // public void onClick(View arg0) {
-        //
-        // update.setVisibility(View.GONE);
-        // try {
-        // showUpdateDialog();
-        // }
-        // catch (NameNotFoundException e) {
-        // e.printStackTrace();
-        // }
-        // }
-        // });
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+
+                update.setVisibility(View.GONE);
+                try {
+                    showUpdateDialog();
+                }
+                catch (NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         /**************** 20140912 增加“取消自动登录”按钮 开始 ***********************/
         // 打开本地已经存在的sharedPreferences文件
@@ -254,6 +254,15 @@ public class Set extends Activity implements OnClickListener {
                             update.setVisibility(View.INVISIBLE);
                         }
                         break;
+                    // case Const.UPDATE:
+                    // update.setVisibility(View.GONE);
+                    // try {
+                    // showUpdateDialog();
+                    // }
+                    // catch (NameNotFoundException e) {
+                    // e.printStackTrace();
+                    // }
+                    // break;
                     default:
                         break;
                 }
@@ -336,15 +345,15 @@ public class Set extends Activity implements OnClickListener {
             // // 确认保存并提交
             // editor.commit();
             // break;
-            case R.id.update:
-                update.setVisibility(View.INVISIBLE);
-                try {
-                    showUpdateDialog();
-                }
-                catch (NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-                break;
+            // case R.id.update:
+            // new Thread(new Runnable() {
+            // @Override
+            // public void run() {
+            // // TODO Auto-generated method stub
+            // handler.sendEmptyMessage(Const.UPDATE);
+            // }
+            // }).start();
+            // break;
             default:
                 break;
         }
