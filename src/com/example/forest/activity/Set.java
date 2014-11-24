@@ -105,7 +105,6 @@ public class Set extends Activity implements OnClickListener {
         yesbtn.setOnClickListener(this);
         updateUser.setOnClickListener(this);
         updatePests.setOnClickListener(this);
-        // cancelAutoLogin.setOnClickListener(this);
 
         // 获取手机编号,所有的用户
         getUser_thread = new Thread() {

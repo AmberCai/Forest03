@@ -29,7 +29,7 @@
             android:layout_width="235dp"
             android:layout_height="98dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/msgarea_shape">
             
             <TextView 
@@ -61,9 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/homepagecorner"
-        android:padding="15dip" >
+        android:padding="15dp" >
 
         <GridView
             android:id="@+id/gridview"
@@ -80,7 +80,8 @@
      <LinearLayout 
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">        
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">        
        
           <Button
             android:id="@+id/shangban"
@@ -109,7 +110,7 @@
         android:textSize="20sp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="20dp"       
+        android:paddingTop="30dp"       
         />
     
     <TextView 

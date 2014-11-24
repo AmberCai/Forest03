@@ -35,7 +35,8 @@ public class Login extends Activity {
     // public final static String SERVER_IP = "221.207.25.161"; //祁连
     // public final static String SERVER_IP = "111.12.185.6"; // 大通
     // public final static String SERVER_IP = "27.21.13.29"; //电脑模拟测试
-    public final static String SERVER_IP = "192.168.1.113"; // 测试
+    public final static String SERVER_IP = "118.213.160.106"; // 祁连(新)
+    // public final static String SERVER_IP = "192.168.1.113"; // 测试
 
     // 界面上控件
     Spinner username;

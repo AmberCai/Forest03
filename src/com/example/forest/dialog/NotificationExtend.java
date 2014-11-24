@@ -28,7 +28,7 @@ public class NotificationExtend {
     // 显示Notification
     @SuppressWarnings("deprecation")
     public void showNotification() {
-        // 创建一个NotificationManager的引用
+        // 创建一个NotificationManager的引用---即获取系统服务
         NotificationManager notificationManager = (NotificationManager) context
                 .getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 
@@ -40,8 +40,8 @@ public class NotificationExtend {
         // builder.build();
 
         // 定义Notification的各种属性
-        Notification notification = new Notification(
-                R.drawable.forest_launcher, "森林三防", System.currentTimeMillis());
+        Notification notification = new Notification(R.drawable.forest_notify,
+                "森林三防", System.currentTimeMillis());
         // 将此通知放到通知栏的"Ongoing"即"正在运行"组中
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
         // 表明在点击了通知栏中的"清除通知"后，此通知自动清除。

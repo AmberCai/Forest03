@@ -362,9 +362,13 @@ public class Main extends Activity implements OnClickListener {
 
             ImageView imageView;
             if (convertView == null) {
+                // 实例化imageView对象
                 imageView = new ImageView(context);
-                imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
+                // 设置ImageView对象布局
+                imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
+                // 设置刻度类型
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                // 设置间距
                 imageView.setPadding(3, 10, 3, 10);
             }
             else {
