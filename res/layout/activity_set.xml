@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:paddingLeft="24dp">
+        android:paddingLeft="38dp">
 	<Button 
 	    android:id="@+id/updateuser"
 	    android:background="@drawable/updateuser_selector"
@@ -119,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/userLinear"
-        android:paddingLeft="15dp">
+        android:paddingLeft="22dp">
    <Button 
 	    android:id="@+id/updatepests"
 	    android:background="@drawable/updatepests_selector"
@@ -145,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/pestsLinear"
-        android:paddingLeft="15dp">
+        android:paddingLeft="22dp">
      <Button 
 	    android:id="@+id/cancelAutoLogin"
 	    android:background="@drawable/autologin_selector"
@@ -167,7 +167,7 @@
 </RelativeLayout> 
 	
 	<Button 
-	        android:paddingTop="20dp"
+	        android:paddingTop="22dp"
             android:id="@+id/yesbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

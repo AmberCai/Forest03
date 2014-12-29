@@ -35,8 +35,8 @@ public class Login extends Activity {
     // public final static String SERVER_IP = "221.207.25.161"; //祁连
     // public final static String SERVER_IP = "111.12.185.6"; // 大通
     // public final static String SERVER_IP = "27.21.13.29"; //电脑模拟测试
-    public final static String SERVER_IP = "118.213.160.106"; // 祁连(新)
-    // public final static String SERVER_IP = "192.168.1.113"; // 测试
+    // public final static String SERVER_IP = "118.213.160.106"; // 祁连(新)
+    public final static String SERVER_IP = "192.168.1.133"; // 测试
 
     // 界面上控件
     Spinner username;
@@ -196,8 +196,7 @@ public class Login extends Activity {
                     intent.setFlags(intent.FLAG_ACTIVITY_NO_USER_ACTION);
                     startActivity(intent);
                     Login.this.finish();
-                }
-                else {
+                } else {
                     // 未通过验证,清空输入的密码
                     password.setText("");
                 }
@@ -252,8 +251,7 @@ public class Login extends Activity {
                     if (phoneID.equals("netexception")
                             || phoneID.equals("xxxxxxxx")) {
                         phoneID = ResolveXML.getPhoneID(mac);
-                    }
-                    else {
+                    } else {
                         // 如果获取的phoneID正常，则存入本地sharedPreferences中
                         String phoneIDContent = phoneID;
                         editor.putString("phoneID", phoneIDContent);
@@ -299,8 +297,7 @@ public class Login extends Activity {
          */
         if (!Forest.isNetConnect(Login.this)) {
             showDialogLogin("亲，请检查数据连接状况~");
-        }
-        else {
+        } else {
             queryPhoneID.start();
         }
 
@@ -311,8 +308,7 @@ public class Login extends Activity {
         if (name == null || name.trim().equals("")) {
             showDialogLogin("请选择用户名！");
             return false;
-        }
-        else if (passwrd == null || passwrd.trim().equals("")) {
+        } else if (passwrd == null || passwrd.trim().equals("")) {
             showDialogLogin("请输入密码！");
             return false;
         }
@@ -322,8 +318,7 @@ public class Login extends Activity {
         if (dbManager.isUserValid(name, passwrd)) {
             dbManager.closeDatabase();
             return true;
-        }
-        else {
+        } else {
             dbManager.closeDatabase();
             showDialogLogin("用户名或密码错误，请重新输入！");
             return false;

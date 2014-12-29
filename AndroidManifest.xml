@@ -46,7 +46,8 @@
         <activity
             android:name=".activity.Login"
             android:label="@string/title_activity_login"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,12 +57,14 @@
         <activity
             android:name=".activity.Main"
             android:label="@string/title_activity_main" 
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.CaptureImage"
             android:label="@string/photo_name" 
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
         </activity>
 
         <service android:name=".service.SendLocationService" >
@@ -73,12 +76,14 @@
         <activity
             android:name=".activity.PestsDetail"
             android:label="@string/title_activity_pests_detail" 
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.Set"
             android:label="@string/title_activity_set" 
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
